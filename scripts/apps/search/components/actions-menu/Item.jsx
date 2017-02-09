@@ -119,10 +119,7 @@ export default class Item extends React.Component {
                         activity.icon ? React.createElement('i', {
                             className: 'icon-' + activity.icon
                         }, '') : null,
-                        gettextCatalog.getString(activity.label),
-                        React.createElement('i', {
-                            className: 'icon-chevron-right-thin dropdown__submenu-icon'
-                        })
+                        gettextCatalog.getString(activity.label)
                     ),
                     this.state.open ? $injector.invoke(activity.dropdown, activity, {
                         item: this.props.item,

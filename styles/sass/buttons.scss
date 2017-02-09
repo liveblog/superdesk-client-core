@@ -8,19 +8,6 @@
 }
 
 .navbtn {
-    float: left;
-    padding: 0 10px;
-    background: transparent;
-    color:#333;
-    height: $subnav-height;
-    width:48px;
-    display: block;
-    text-align: center;
-    line-height:$subnav-height;
-    text-decoration: none !important;
-    border:0;
-    border-left: 1px solid rgba(0,0,0,0.1);
-    box-sizing: border-box;
     &.navbtn-info {
         background: $sd-blue;
         border-left: 1px solid lighten($sd-blue, 10%);
@@ -28,17 +15,6 @@
         &.disabled {
             background: #898989;
         }
-    }
-
-    &:hover {
-        background: rgba(255,255,255,0.5);
-        &.navbtn-info {
-            background:  lighten($sd-blue, 5%);
-        }
-    }
-
-    i {
-        vertical-align: middle;
     }
 
     &.disabled {
@@ -55,17 +31,7 @@
         background: #62b0d0;
         cursor: pointer;
     }
-    &.large {
-        width: auto;
-        padding: 0 20px;
-        span {
-            text-transform: uppercase;
-            color: #fff;
-        }
-        span + i {
-            margin-left: 10px;
-        }
-    }
+
     a {
         display: block !important;
         height: 25px !important;
@@ -81,19 +47,9 @@
       i + .title {
           margin-left: 10px;
       }
-      &.navbtn-hover {
-          .title {
-              display: none;
-          }
-          &:hover {
-              .title {
-                  display: inline;
-              }
-          }
-      }
     }
     &--highlighted {
-      background-color: $sd-highlight;
+      background-color: $sd-highlight !important;
       transition: all 0.3s;
       padding: 0 0 0 9px;
       &:hover {
@@ -108,7 +64,7 @@
 .navbtn--highlighted {
   &.active,
   &.active:hover {
-    background-color: #2c2c2c;
+    background-color: #2c2c2c !important;
   }
 }
 

@@ -127,8 +127,8 @@
 
         <div id="authoring-extra-dropdown"
              ng-if="item._type !== 'legal_archive' && item._type !== 'archived' && !highlight && item.state !== 'spiked'"
-             class="navbtn dropdown pull-left strict" dropdown>
-            <button id="more-actions" class="dropdown__toggle" title="{{ :: 'More actions' | translate }}" dropdown__toggle>
+             class="dropdown pull-left strict" dropdown>
+            <button id="more-actions" class="navbtn dropdown__toggle" title="{{ :: 'More actions' | translate }}" dropdown__toggle>
                 <i class="icon-dots-vertical"></i>
             </button>
             <div class="dropdown__menu pull-right">
@@ -165,9 +165,8 @@
                     <div class="dropdown multiedit-toggle" dropdown>
                       <button class="dropdown__toggle" dropdown__toggle>
                         {{ :: 'Multiedit' | translate }}
-                        <i class="icon-chevron-right-thin dropdown__submenu-icon"></i>
                       </button>
-                      <ul class="dropdown__menu right-submenu" sd-multiedit-dropdown></ul>
+                      <ul class="dropdown__menu dropdown__menu--submenu-left" sd-multiedit-dropdown></ul>
                     </div>
                   </li>
                 </ul>
@@ -184,36 +183,33 @@
                 </ul>
 
                 <ul ng-if="item.task.desk && (itemActions.mark_item_for_desks || itemActions.mark_item_for_highlight)">
-                  <li class="divider"></li>
+                  <li class="dropdown__menu-divider"></li>
                   <li><span class="dropdown__menu-label" translate>Mark item for</span></li>
                   <li ng-if="itemActions.mark_item_for_highlight">
                     <div class="dropdown highlights-toggle" dropdown>
                       <button class="dropdown__toggle" dropdown-toggle>
                         {{ :: 'Highlights' | translate }}
-                        <i class="icon-chevron-right-thin dropdown__submenu-icon"></i>
                       </button>
-                      <ul class="dropdown__menu right-submenu" sd-mark-highlights-dropdown></ul>
+                      <ul class="dropdown__menu dropdown__menu--submenu-left" sd-mark-highlights-dropdown></ul>
                     </div>
                   </li>
                   <li ng-if="itemActions.mark_item_for_desks">
                     <div class="dropdown marks-toggle" dropdown>
                       <button class="dropdown__toggle" dropdown-toggle>
                         {{ :: 'Desks' | translate }}
-                        <i class="icon-chevron-right-thin dropdown__submenu-icon"></i>
                       </button>
-                      <ul class="dropdown__menu right-submenu" sd-mark-desks-dropdown></ul>
+                      <ul class="dropdown__menu dropdown__menu--submenu-left" sd-mark-desks-dropdown></ul>
                     </div>
                   </li>
                 </ul>
 
                 <ul ng-if="isTranslationAvailable()">
-                  <li class="divider"></li>
+                  <li class="dropdown__menu-divider"></li>
                   <li><span class="dropdown__menu-label" translate>Translations</span></li>
                   <li>
                     <div class="dropdown highlights-toggle" dropdown>
                       <button class="dropdown__toggle" dropdown__toggle>
                         {{ :: 'Translate item to' | translate }}
-                        <i class="icon-chevron-right-thin dropdown__submenu-icon"></i>
                       </button>
                       <ul class="dropdown__menu right-submenu" sd-translation-dropdown></ul>
                     </div>
@@ -221,18 +217,16 @@
                 </ul>
 
                 <ul ng-if="_editable" ng-controller="SpellcheckMenu as spellcheckMenu">
-                    <li class="divider"></li>
+                    <li class="dropdown__menu-divider"></li>
                     <li><span class="dropdown__menu-label" translate>Spell Checker</span></li>
-                    <li ng-if="!useTansaProofing()">
-                      <span>
-                        <span class="pull-right"
-                            sd-switch
-                            ng-model="spellcheckMenu.isAuto"
-                            ng-change="spellcheckMenu.pushSettings()"
-                            tooltip="{{ spellcheckMenu.isAuto ? 'Spell checking ON' : 'Spell checking OFF'  | translate }}"
-                            tooltip-placement="left"></span>
-                        <span translate>Run automatically</span>
-                      </span>
+                    <li ng-if="!useTansaProofing()" class="dropdown__menu-item--no-link">
+                      <span class="pull-right"
+                          sd-switch
+                          ng-model="spellcheckMenu.isAuto"
+                          ng-change="spellcheckMenu.pushSettings()"
+                          tooltip="{{ spellcheckMenu.isAuto ? 'Spell checking ON' : 'Spell checking OFF'  | translate }}"
+                          tooltip-placement="left"></span>
+                      <span translate>Run automatically</span>
                     </li>
                     <li ng-if="!useTansaProofing()">
                         <button type="button"

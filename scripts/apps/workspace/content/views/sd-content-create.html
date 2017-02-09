@@ -11,26 +11,26 @@
 
 <li ng-repeat="profile in profiles track by profile._id">
     <button id="type-{{ :: profile._id }}" ng-click="createFromType(profile)">
-        <i class="icon-plus-small icon-round icon-white"></i>
+        <i class="icon-plus-sign icon--blue"></i>
         {{ :: profile.label }}
     </button>
 </li>
 
 <li ng-if="canCreatePackage() && !$root.config.features.hideCreatePackage">
     <button id="create_package"  ng-click="createPackage()">
-        <i class="icon-plus-small icon-round icon-white"></i>
+        <i class="icon-plus-sign icon--blue"></i>
         {{ :: 'Empty Package' | translate }}
     </button>
 </li>
 
 <li ng-if="item">
     <button id="package_item" ng-click="createPackage(item)">
-        <i class="icon-plus-small icon-round icon-white"></i>
+        <i class="icon-plus-sign icon--blue"></i>
         {{ :: 'Package current item' | translate }}
     </button>
 </li>
 
-<li class="divider"></li>
+<li class="dropdown__menu-divider"></li>
 
 <li>
     <div class="dropdown__menu-label" translate>From template</div>
@@ -38,24 +38,26 @@
 <div ng-show="contentTemplates.length">
     <li ng-repeat="template in contentTemplates | orderBy:'template_name'">
         <button ng-click="createFromTemplate(template)">
-            <i class="icon-plus-small icon-round icon-white"></i> {{ :: template.template_name }}
+            <i class="icon-plus-sign icon--blue"></i> {{ :: template.template_name }}
         </button>
     </li>
 </div>
 
 <div ng-hide="contentTemplates.length">
-    <li translate>No recent templates.</li>
+    <li translate>
+        <span class="dropdown__menu-item--no-link"><em>No recent templates.</em></span>
+    </li>
 </div>
 
 <li>
     <button ng-click="flags = {displayTemplateSelect: true}" translate>More templates...</button>
 </li>
 
-<li class="divider" ng-if="openUpload"></li>
+<li class="dropdown__menu-divider" ng-if="openUpload"></li>
 
 <li ng-if="openUpload">
     <button ng-click="openUpload()" id="start-upload-btn">
-        <i class="icon-upload blue"></i> {{ :: 'UPLOAD ITEM' | translate }}
+        <i class="icon-upload blue"></i> {{ :: 'Upload item' | translate }}
     </button>
 </li>
 

@@ -17,9 +17,11 @@
         > .nav-stacked {
             width: 180px;
             position: absolute;
+            padding: 0;
             bottom: 0; top:0;
             left:0;
             margin: 0;
+            flex-direction: column;
             background: $sd-background;
             border-right: 1px solid #ddd;
             @include box-shadow(inset -3px 0 8px -3px rgba(0,0,0,0.1));

@@ -52,14 +52,14 @@
     <button class="dropdown__toggle" dropdown__toggle><i class="icon-white icon-dots-vertical"></i></button>
         <ul class="dropdown__menu pull-right dropdown__menu--padded-l10">
             <li class="dropdown__menu-label" translate> Show</li>
-            <li class="divider"></li>
+            <li class="dropdown__menu-divider"></li>
             <li>
                 <div>
                     <span class="pull-right" sd-switch ng-model="item.show_status" ng-click="setUserPreferences()"></span>
                     <label translate>Status</label>
                 </div>
             </li>
-            <li class="divider"></li>
+            <li class="dropdown__menu-divider"></li>
             <li>
                 <div>
                     <span class="pull-right" sd-switch ng-model="item.show_ingest_count" ng-click="setUserPreferences()"></span>
@@ -67,7 +67,7 @@
                     <span class="dropdown__menu-info" translate>in the last 24 hours.</span>
                 </div>
             </li>
-            <li class="divider"></li>
+            <li class="dropdown__menu-divider"></li>
             <li>
                 <div>
                     <span class="pull-right" sd-switch ng-model="item.show_time" ng-click="setUserPreferences()"></span>
@@ -75,7 +75,7 @@
                     <span class="dropdown__menu-info" translate>last update and last item arrived.</span>
                 </div>
             </li>
-            <li class="divider"></li>
+            <li class="dropdown__menu-divider"></li>
             <li>
                 <div>
                     <span class="pull-right" sd-switch ng-model="item.show_log_messages" ng-click="setUserPreferences()"></span>
@@ -100,7 +100,7 @@
                     </ul>
                 </div>
             </li>
-            <li class="divider"></li>
+            <li class="dropdown__menu-divider"></li>
             <li class="dropdown__menu-item" ng-if="showIngest"><a class="uppercase" ng-href="#/settings/ingest?_id={{item._id}}"><i class="icon-pencil"></i><span translate>Edit Ingest Source</span></a></li>
         </ul>
 </div>

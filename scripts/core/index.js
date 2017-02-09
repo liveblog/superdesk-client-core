@@ -42,6 +42,8 @@ let core = angular.module('superdesk.core', [
 
     'ui.bootstrap',
 
+    'superdesk-ui',
+
     'superdesk.core.activity',
     'superdesk.core.analytics',
     'superdesk.core.api',

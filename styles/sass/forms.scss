@@ -633,24 +633,6 @@ form, ng-form {
               color: $grayLight;
               text-transform: uppercase;
               height: 18px;
-
-              input[type="checkbox"],
-              input[type="radio"],
-              .sd-checkbox,
-              .sd-toggle {
-                  float: left;
-                  margin-right: 10px;
-              }
-
-              &.right {
-                  input[type="checkbox"],
-                  input[type="radio"],
-                  .sd-checkbox,
-                  .sd-toggle {
-                      float: right;
-                      margin-left: 10px;
-                  }
-              }
               &.inline-label {
                 color: #333;
                 text-transform: none;
@@ -771,10 +753,6 @@ form.flat, .form-flat {
             margin-left: 5px;
           }
         }
-      }
-      .sd-toggle, .sd-checkbox {
-        float: right;
-        margin-top: 5px;
       }
       &.password {
         .info-value {

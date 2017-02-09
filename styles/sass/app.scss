@@ -22,9 +22,7 @@
 @import 'tables';
 
 // Dropdowns
-@import 'dropdowns/basic-dropdown';
-@import 'dropdowns/nested-dropdown';
-@import 'dropdowns/navigation-dropdown';
+//@import 'dropdowns/navigation-dropdown';
 @import 'dropdowns/input-dropdown';
 
 // Components: common
@@ -38,7 +36,7 @@
 // Components: Buttons & Alerts
 @import 'buttons';
 @import 'buttons/toggle-buttons';
-@import 'buttons/basic-buttons';
+//@import 'buttons/basic-buttons';
 @import 'button-groups';
 @import 'alerts'; // Note: alerts share common CSS with buttons and thus have styles in buttons.scss
 
