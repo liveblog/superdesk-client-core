@@ -6,7 +6,7 @@
             <i class="icon-switches"></i>
         </button>
 
-        <button class="navbtn navbtn-info" ng-click="dashboard.save()" ng-show="dashboard.edit">
+        <button class="navbtn navbtn--blue" ng-click="dashboard.save()" ng-show="dashboard.edit">
             <i class="svg-icon-ok inverse"></i>
         </button>
 
@@ -54,55 +54,49 @@
     </div>
 </div>
 
-<div ng-if="dashboard.add">
-    <div class="modal-backdrop in"></div>
-    <div class="widget-select modal-big modal in">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="pull-left" translate>Add new widget</h3>
-                    <button class="close" ng-click="dashboard.add = false"><i class="icon-close-small"></i></button>
-                </div>
+<div sd-modal data-model="dashboard.add" class="modal--large modal--tabs">
+    <div class="modal__header">
+        <button class="modal__close pull-right" ng-click="dashboard.add = false"><i class="icon-close-small"></i></button>
+        <h3 class="modal__heading" translate>Add new widget</h3>        
+    </div>
 
-                <div class="modal-body" ng-if="!dashboard.selectedWidget">
-                    <div class="nav-tabs">
-                    </div>
-                    <div class="modal-screen">
-                        <ul class="widget-list">
-                            <li ng-repeat="widget in dashboard.availableWidgets" ng-click="dashboard.selectWidget(widget)" ng-class="{selected: dashboard.isSelected(widget)}" class="widget {{ widget._id }}">
-                                <div class="thumbnail"><img ng-src="{{ :: widget.thumbnail }}"></div>
-                                <div class="title">{{ :: widget.label | translate}}</div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="modal-body" ng-if="dashboard.selectedWidget">
-                    <div class="nav-tabs">
-                        <button class="backlink" ng-click="dashboard.selectWidget()" translate>Back</button>
-                    </div>
-                    <div class="modal-screen widget-detail">
-                        <div class="thumbnail-box {{ dashboard.selectedWidget._id }}">
-                            <img ng-src="{{ :: dashboard.selectedWidget.thumbnail }}">
-                        </div>
-                        <div class="content-box">
-                            <div class="title">{{ :: dashboard.selectedWidget.label | translate }}</div>
-                            <div class="description">{{ :: dashboard.selectedWidget.description | translate }}</div>
-                            <button class="btn btn--primary btn--large"
-                                ng-click="dashboard.addWidget(dashboard.selectedWidget)"
-                                ng-disabled="!dashboard.selectedWidget"
-                                translate>Add This Widget</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer" ng-if="!dashboard.selectedWidget">
-                    <button class="btn btn--primary" ng-click="dashboard.add = false" translate>Done</button>
-                </div>
-
-                <div class="modal-footer" ng-if="dashboard.selectedWidget">
-                </div>
+    <div class="modal__body" ng-if="!dashboard.selectedWidget">
+        <div class="modal__body-header">
+            <div class="nav-tabs">
             </div>
         </div>
+        <div class="modal__body-content">
+            <ul class="widget-list">
+                <li ng-repeat="widget in dashboard.availableWidgets" ng-click="dashboard.selectWidget(widget)" ng-class="{selected: dashboard.isSelected(widget)}" class="widget {{ widget._id }}">
+                <div class="thumbnail"><img ng-src="{{ :: widget.thumbnail }}"></div>
+                <div class="title">{{ :: widget.label | translate}}</div>
+                </li>
+            </ul>
+        </div>
+        <div class="modal__body-footer" ng-if="!dashboard.selectedWidget">
+            <button class="btn btn--primary" ng-click="dashboard.add = false" translate>Done</button>
+        </div>
     </div>
+
+    <div class="modal__body" ng-if="dashboard.selectedWidget">
+        <div class="modal__body-header">
+            <div class="nav-tabs">
+                <button class="backlink" ng-click="dashboard.selectWidget()" translate>Back</button>
+            </div>
+        </div>
+        <div class="modal__body-content widget-detail">
+            <div class="thumbnail-box {{ dashboard.selectedWidget._id }}">
+                <img ng-src="{{ :: dashboard.selectedWidget.thumbnail }}">
+            </div>
+            <div class="content-box">
+                <div class="title">{{ :: dashboard.selectedWidget.label | translate }}</div>
+                <div class="description">{{ :: dashboard.selectedWidget.description | translate }}</div>
+                <button class="btn btn--primary btn--large"
+                    ng-click="dashboard.addWidget(dashboard.selectedWidget)"
+                    ng-disabled="!dashboard.selectedWidget"
+                    translate>Add This Widget</button>
+            </div>
+        </div>
+        <div class="modal__body-footer" ng-if="dashboard.selectedWidget"></div>
+    </div>                                               
 </div>

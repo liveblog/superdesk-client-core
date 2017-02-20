@@ -1,12 +1,12 @@
-<div sd-modal data-model="modalActive" data-close="cancel()" class="add-desk-popup moz-scroll-fix modal-large">
+<div sd-modal data-model="modalActive" data-close="cancel()" class="modal--tabs modal--large">
 
-    <div class="modal-header">
+    <div class="modal__header">
         <a href="" class="close" ng-click="cancel()"><i class="icon-close-small"></i></a>
-        <h3 ng-show="!desk.edit._id" translate>Add New Desk</h3>
-        <h3 ng-show="desk.edit._id" translate>Edit "{{desk.edit.name}}" Desk</h3>
+        <h3 class="modal__heading" ng-show="!desk.edit._id" translate>Add New Desk</h3>
+        <h3 class="modal__heading" ng-show="desk.edit._id" translate>Edit "{{desk.edit.name}}" Desk</h3>
     </div>
 
-    <div class="modal-body" sd-wizard data-name="desks" data-current-step="step.current" data-finish="cancel()">
+    <div class="modal__body" sd-wizard data-name="desks" data-current-step="step.current" data-finish="cancel()">
 
         <div sd-wizard-step data-title="{{ 'General' | translate }}" data-code="general">
             <div sd-deskedit-basic>
@@ -92,7 +92,7 @@
                         <span class="alert-danger" ng-show="_errorLimits" translate>Character limit exceeded, desk can not be created/updated.</span>
                         <span class="alert-danger" ng-show="_error">{{ _errorMessage }}</span>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal__footer">
                         <button id="next-general"
                                 class="btn btn--primary"
                                 ng-click="save(desk.edit)"
@@ -113,8 +113,8 @@
 
                     <div class="col">
                         <div class="heading pull-left" translate>Work stages</div>
-                        <button id="new-stage" class="btn btn--primary btn--circle btn--pull-right" data-target="#insert-stage" ng-click="edit({}); selected=null" ng-disabled="editStage">
-                            <i class="icon-plus-small icon-white"></i>
+                        <button id="new-stage" class="btn btn--primary btn--circle pull-right" data-target="#insert-stage" ng-click="edit({}); selected=null" ng-disabled="editStage">
+                            <i class="icon-plus-small icon--white"></i>
                         </button>
                         <div class="row">
                             <ul class="pills-list" ng-class="{'edit-mode': editStage}">
@@ -292,7 +292,7 @@
                     </div>
                     <span class="alert-danger" ng-show="_errorMessage">{{ _errorMessage }}</span>
                 </div>
-                <div class="modal-footer">
+                <div class="modal__footer">
                     <button id="next-people"
                             class="btn btn--primary"
                             ng-click="save()"
@@ -316,7 +316,7 @@
                 </li>
               </ul>
             </div>
-            <div class="modal-footer-relative">
+            <div class="modal__footer">
                 <button id="save" class="btn btn--primary" ng-click="save()" translate>Done</button>
             </div>
         </div>

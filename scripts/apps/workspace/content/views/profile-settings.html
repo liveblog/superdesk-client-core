@@ -4,8 +4,8 @@
         <div class="header">
             <h2 translate>Content Profiles</h2>
 
-            <button id="add-new-content-profile" class="btn btn--primary btn--pull-right" ng-click="ctrl.toggleCreate()">
-                <i class="icon-plus-sign icon-white"></i> {{ :: 'Add New Content Profile' | translate }}
+            <button id="add-new-content-profile" class="btn btn--primary pull-right" ng-click="ctrl.toggleCreate()" data-close="cancel()">
+                <i class="icon-plus-sign icon--white"></i> {{ :: 'Add New Content Profile' | translate }}
             </button>
         </div>
         <div class="content split-content">
@@ -55,11 +55,11 @@
     </div>
 
     <!-- Create profile modal -->
-    <div sd-modal class="modal-large content-profile-modal" data-model="creating" data-close="ctrl.toggleCreate()">
-            <div class="modal-header"> <a href="" class="close" ng-click="ctrl.toggleCreate()"><i class="icon-close-small"></i></a>
-                <h3 translate>Add New Content Profile V</h3>
+    <div sd-modal class="modal--large" data-model="creating" data-close="ctrl.toggleCreate()">
+            <div class="modal__header"> <a href="" class="close" ng-click="ctrl.toggleCreate()"><i class="icon-close-small"></i></a>
+                <h3 class="modal__heading" translate>Add New Content Profile</h3>
             </div>
-            <div class="modal-body">
+            <div class="modal__body">
                 <form name="createForm">
                     <fieldset>
                         <div class="field">
@@ -73,18 +73,18 @@
                     </fieldset>
                 </form>
             </div>
-            <div class="modal-footer">
+            <div class="modal__footer">
                 <button class="btn btn--primary" ng-disabled="createForm.$invalid" ng-click="ctrl.save()" translate>Save &amp; Continue</button>
                 <button class="btn" ng-click="ctrl.toggleCreate()" translate>Cancel</button>
             </div>
     </div>
 
     <!-- Edit profile modal -->
-    <div sd-modal class="modal-large content-profile-update" data-model="!!editing" data-close="ctrl.toggleEdit(null)">
-            <div class="modal-header"> <a href="" class="close" ng-click="ctrl.toggleEdit(null)"><i class="icon-close-small"></i></a>
-                <h3>{{ :: 'Editing' | translate }} "{{ editing.form.label }}"</h3>
+    <div sd-modal class="modal--large" data-model="!!editing" data-close="ctrl.toggleEdit(null)">
+            <div class="modal__header"> <a href="" class="close" ng-click="ctrl.toggleEdit(null)"><i class="icon-close-small"></i></a>
+                <h3 class="modal__heading">{{ :: 'Editing' | translate }} "{{ editing.form.label }}"</h3>
             </div>
-            <div class="modal-body">
+            <div class="modal__body">
                 <form name="editForm">
                     <fieldset>
                         <div class="field">
@@ -108,7 +108,7 @@
                     </fieldset>
                 </form>
             </div>
-            <div class="modal-footer">
+            <div class="modal__footer">
                 <button class="btn btn--primary" ng-disabled="editForm.$invalid || !editForm.$dirty" ng-click="ctrl.update()" translate>Save</button>
                 <button class="btn" ng-click="ctrl.toggleEdit(null)" translate>Cancel</button>
             </div>

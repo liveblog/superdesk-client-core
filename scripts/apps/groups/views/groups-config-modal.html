@@ -1,12 +1,12 @@
-<div sd-modal data-model="modalActive" data-close="cancel()" class="add-group-popup modal-large modal-static" >
+<div sd-modal data-model="modalActive" data-close="cancel()" class="modal--tabs modal--large">
 
-    <div class="modal-header">
+    <div class="modal__header">
         <a href="" class="close" ng-click="cancel()"><i class="icon-close-small"></i></a>
         <h3 ng-show="!group.edit._id" translate>Add New Group</h3>
         <h3 ng-show="group.edit._id" translate>Edit "{{group.edit.name}}" Group</h3>
     </div>
 
-    <div class="modal-body" sd-wizard data-name="usergroups" data-current-step="step.current" data-finish="cancel()">
+    <div class="modal__body" sd-wizard data-name="usergroups" data-current-step="step.current" data-finish="cancel()">
 
         <div sd-wizard-step data-title="{{ 'General' | translate }}" data-code="general">
             <div sd-groupedit-basic>
@@ -28,7 +28,7 @@
                         <p ng-show="_errorLimits" translate>Character limit exceeded, group can not be created/updated.</p>
                         <span ng-show="_error" translate>There was a problem, group not created/updated.</span>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal__body-footer">
                           <button class="btn btn--primary" ng-click="save(group.edit)" ng-disabled="!generalStep.$valid || _errorLimits" translate>Next</button>
                     </div>
                 </form>
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal__body-footer">
                       <button class="btn btn--pull-left" ng-click="previous()" translate>Previous</button>
                       <button class="btn btn--primary" ng-click="save()" translate>Done</button>
                 </div>

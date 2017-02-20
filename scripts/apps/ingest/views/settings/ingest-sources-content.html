@@ -1,8 +1,8 @@
 <div class="split-content">
     <div class="header">
         <h2 translate>Ingest sources</h2>
-        <button class="btn btn--primary btn--pull-right" ng-click="edit()">
-            <i class="icon-plus-sign icon-white"></i> <span translate>Add New Source</span>
+        <button class="btn btn--primary pull-right" ng-click="edit()">
+            <i class="icon-plus-sign icon--white"></i> <span translate>Add New Source</span>
         </button>
     </div>
 
@@ -25,12 +25,12 @@
     </div>
 </div>
 
-<div sd-modal data-model="provider" data-close="cancel()" class="ingestsource-modal moz-scroll-fix modal-large">
-    <div class="modal-header"> <a href="" class="close" ng-click="cancel()"><i class="icon-close-small"></i></a>
-        <h3 ng-show="provider._id"><span translate>Edit Source</span> "{{ origProvider.name }}"</h3>
-        <h3 translate ng-hide="provider._id" translate>Add New Source</h3>
+<div sd-modal data-model="provider" data-close="cancel()" class="modal--large">
+    <div class="modal__header"> <a href="" class="close" ng-click="cancel()"><i class="icon-close-small"></i></a>
+        <h3 class="modal__heading" ng-show="provider._id"><span translate>Edit Source</span> "{{ origProvider.name }}"</h3>
+        <h3 class="modal__heading" translate ng-hide="provider._id" translate>Add New Source</h3>
     </div>
-    <div class="modal-body">
+    <div class="modal__body">
         <form name="editForm" ng-submit="save()">
             <fieldset>
                 <tabset>
@@ -169,7 +169,7 @@
             </fieldset>
         </form>
     </div>
-    <div class="modal-footer">
+    <div class="modal__footer">
         <button class="btn" ng-click="cancel()" translate>Cancel</button>
         <button class="btn btn--primary" ng-click="save()" ng-disabled="!editForm.$valid" translate>Save</button>
     </div>

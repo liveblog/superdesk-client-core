@@ -1,6 +1,4 @@
-<div class="modal-header">
-    <h3 ng-if="!isAoISelectionModeEnabled" class="pull-left">{{ activity.label|translate }}</h3>
-    <h3 ng-if="isAoISelectionModeEnabled" class="pull-left" translate>Select Area of Interest</h3>
+<div class="modal__header">
     <div class="pull-right">
         <button type="button"
         class="btn"
@@ -13,9 +11,11 @@
         ng-disabled="!saveIsEnabled()"
         translate>Save</button>
     </div>
+    <h3 class="modal__heading" ng-if="!isAoISelectionModeEnabled" class="pull-left">{{ activity.label|translate }}</h3>
+    <h3 class="modal__heading" ng-if="isAoISelectionModeEnabled" class="pull-left" translate>Select Area of Interest</h3>    
 </div>
 
-<div class="modal-body modal-body__flex">
+<div class="modal__body modal-body__flex">
     <div class="modal-body__flex-top">
         <div class="modal-body__flex-main">
             <div ng-if="!selectedRendition">

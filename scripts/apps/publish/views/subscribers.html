@@ -1,8 +1,8 @@
 <div ng-hide="hideList" class="split-content">
     <div class="header">
         <h2 translate>Subscribers</h2>
-        <button id="addSubscriber" class="btn btn--primary btn--pull-right" ng-click="edit()">
-            <i class="icon-plus-sign icon-white"></i> <span translate>Add New Subscriber</span>
+        <button id="addSubscriber" class="btn btn--primary pull-right" ng-click="edit()">
+            <i class="icon-plus-sign icon--white"></i> <span translate>Add New Subscriber</span>
         </button>
     </div>
 
@@ -21,12 +21,12 @@
     </div>
 </div>
 
-<div sd-modal data-model="subscriber" data-close="cancel()" class="subscriber-modal modal-big moz-scroll-fix">
-    <div class="modal-header"> <a href="" class="close" ng-click="cancel()"><i class="icon-close-small"></i></a>
-        <h3 ng-show="subscriber._id"><span translate>Edit Subscriber</span> "{{ origSubscriber.name }}"</h3>
-        <h3 translate ng-hide="subscriber._id">Add New Subscriber</h3>
+<div sd-modal data-model="subscriber" data-close="cancel()" class="modal--fill modal--tabs">
+    <div class="modal__header"> <a href="" class="close" ng-click="cancel()"><i class="icon-close-small"></i></a>
+        <h3 class="modal__heading" ng-show="subscriber._id"><span translate>Edit Subscriber</span> "{{ origSubscriber.name }}"</h3>
+        <h3 class="modal__heading" translate ng-hide="subscriber._id">Add New Subscriber</h3>
     </div>
-    <div class="modal-body">
+    <div class="modal__body">
         <form name="editForm">
             <fieldset>
                 <tabset>
@@ -120,7 +120,7 @@
                                 data-actions="[{label: 'Save', fn: saveNewDestination}, {label: 'Cancel', fn: cancelNewDestination}]"></div>
                             <i class="field-info pull-right">*</i>
                             <button type="button" class="btn btn--primary" ng-click="addNewDestination()" ng-show="newDestination === null">
-                                <i class="icon-plus-sign icon-white"></i> <span translate>Add New Destination</span>
+                                <i class="icon-plus-sign icon--white"></i> <span translate>Add New Destination</span>
                             </button>
                         </fieldset>
                     </tab>
@@ -189,7 +189,7 @@
             </fieldset>
         </form>
     </div>
-    <div class="modal-footer">
+    <div class="modal__footer">
         <button class="btn" ng-click="cancel()" translate>Cancel</button>
         <button class="btn btn--primary" ng-click="save()" ng-disabled="editForm.$invalid || destinations.length === 0" translate>Save</button>
     </div>
