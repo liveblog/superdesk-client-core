@@ -206,7 +206,7 @@ CreateButtonDirective.$inject = [];
 function CreateButtonDirective() {
     return {
         restrict: 'C',
-        template: '<i class="svg-icon-plus"></i><span class="circle"></span>'
+        template: '<i class="icon-plus-large"></i><span class="circle"></span>'
     };
 }
 

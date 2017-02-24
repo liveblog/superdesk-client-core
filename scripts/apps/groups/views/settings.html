@@ -11,7 +11,7 @@
         <div class="content">
             <div sd-shadow>
                 <ul class="pills-list" >
-                    <li ng-repeat="group in groups._items">
+                    <li ng-repeat="group in groups._items" class="clearfix">
                         <h6>{{ group.name }}</h6>
                         <div class="actions">
                             <button ng-click="openGroup('general', group)" title="{{:: 'Edit group' | translate }}"><i class="icon-pencil"></i></button>

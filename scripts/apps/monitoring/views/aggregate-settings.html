@@ -1,5 +1,5 @@
 <div class="modal__header">
-    <a href="" class="close" ng-click="cancel()"><i class="icon-close-small"></i></a>
+    <a href="" class="modal__close pull-right" ng-click="cancel()"><i class="icon-close-small"></i></a>
     <h3 class="modal__heading" translate>Monitoring settings <span ng-if="settings.desk" translate>for "{{settings.desk.name}}" Desk</span></h3>
 </div>
 
@@ -133,7 +133,7 @@
 </div>
 
 <div class="modal__footer">
-    <button id="previousBtn" class="btn btn--pull-left" ng-if="step.current !== 'desks' && !displayOnlyCurrentStep" ng-click="previous()" translate>Previous</button>
+    <button id="previousBtn" class="btn pull-left" ng-if="step.current !== 'desks' && !displayOnlyCurrentStep" ng-click="previous()" translate>Previous</button>
     <button id="nextBtn" class="btn" ng-if="step.current !== 'maxitems' && !displayOnlyCurrentStep" ng-click="next()" translate>Next</button>
     <button class="btn btn--primary" ng-click="save()" translate>Done</button>
 </div>

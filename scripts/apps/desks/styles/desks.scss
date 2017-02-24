@@ -330,77 +330,15 @@ $desk-width: 270px;
 /* Desk create/edit popup */
 
 .add-desk-popup {
-    .modal-body {
-        bottom: 0;
+    .modal__body {
         height: 500px !important;
         max-height: 500px !important;
-        @include border-radius(0px 0px 4px 4px);
-        .modal-screen {
-            top: 48px;
-        }
-        .desk-content {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 55px;
-            padding: 21px;
-            overflow-y: scroll;
-            .content-profiles-list {
-              padding-top: 10px;
-              & > li {
-                display: inline-block;
-                padding: 0 0 6px;
-              }
-            }
-        }
-        .char-count-holder {
-            position: absolute;
-            top: -19px;
-            left: 2px;
-        }
-        .char-count {
-            font-size: 11px;
-            color: $sd-text;
-            margin-right: 3px;
-            font-style: italic;
-            &.error {
-                @include text-semibold();
-                color: #D33C30;
-            }
-        }
-        .desk-type {
-            clear: both;
-        }
-        .expiry {
-            list-style: none;
-            li {
-                float: left;
-                padding-left: 25px;
-            }
-            li:first-child {
-                padding-left: 0px;
-            }
-        }
-    }
-    .modal-footer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-    }
-    .modal-footer-relative {
-        position: relative;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        float: right;
     }
     .stages {
         .col {
             position: absolute;
             @include border-box();
-            top: 10px; bottom: 70px;
+            top: 60px; bottom: 10px;
             left: 0; right: 50%;
             padding: 10px 20px;
             overflow-x: hidden;
@@ -424,7 +362,7 @@ $desk-width: 270px;
             float: none;
             .right {
                 position: absolute;
-                top: -18px; right: -30px;
+                top: -18px; right: 0;
             }
             label {
                 font-size: 13px;
@@ -521,7 +459,7 @@ $desk-width: 270px;
         .content {
             position: absolute;
             left: 20px; right: 20px;
-            top: 70px; bottom: 80px;
+            top: 100px; bottom: 80px;
             overflow: auto;
         }
         .member-list {
