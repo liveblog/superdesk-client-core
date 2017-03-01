@@ -11,6 +11,7 @@ export function IngestSourcesContent(ingestSources, gettext, notify, api, $locat
             $scope.origProvider = null;
             $scope.feedParsers = [];
             $scope.feedingServices = [];
+            $scope.step = {current: 'general'};
 
             $scope.fileTypes = ['text', 'picture', 'graphic', 'composite', 'video', 'audio'];
             $scope.minutes = [0, 1, 2, 3, 4, 5, 8, 10, 15, 30, 45];
