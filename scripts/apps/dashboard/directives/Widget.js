@@ -1,6 +1,6 @@
 import {ConfigController} from 'apps/dashboard/controllers';
 
-Widget.$inject = ['$modal', 'asset'];
+Widget.$inject = ['asset', '$modal'];
 
 /**
  * sdWidget give appropriate template to data assgined to it
@@ -11,7 +11,7 @@ Widget.$inject = ['$modal', 'asset'];
  * Params:
  * @scope {Object} widget
  */
-export function Widget($modal, asset) {
+export function Widget(asset, $modal) {
     return {
         templateUrl: asset.templateUrl('apps/dashboard/views/widget.html'),
         restrict: 'A',
@@ -23,6 +23,7 @@ export function Widget($modal, asset) {
                 $modal.open({
                     templateUrl: 'scripts/apps/dashboard/views/configuration.html',
                     controller: ConfigController,
+                    controllerAs: 'dataCtrl',
                     scope: scope
                 });
             };

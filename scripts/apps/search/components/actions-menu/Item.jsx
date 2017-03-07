@@ -59,9 +59,9 @@ export default class Item extends React.Component {
         var BUFFER = 250;
 
         if (targetRect.left < LEFT_BAR_WIDTH + BUFFER) {
-            this.setState({position: 'left-submenu'});
+            this.setState({position: 'dropdown__menu--submenu-right'});
         } else {
-            this.setState({position: 'right-submenu'});
+            this.setState({position: 'dropdown__menu--submenu-left'});
         }
     }
 

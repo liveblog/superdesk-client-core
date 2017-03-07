@@ -40,8 +40,6 @@ let core = angular.module('superdesk.core', [
     'ngResource',
     'ngFileUpload',
 
-    'ui.bootstrap',
-
     'superdesk-ui',
 
     'superdesk.core.activity',

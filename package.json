@@ -30,7 +30,6 @@
   "dependencies": {
     "angular": "1.5.11",
     "angular-animate": "1.5.11",
-    "angular-bootstrap-npm": "jusopi/angular-bootstrap-npm#0.13.1",
     "angular-contenteditable": "0.0.2",
     "angular-dynamic-locale": "^0.1.32",
     "angular-embed": "superdesk/angular-embed#2afd7397a7179f25b66c4b5f13ea2a0daf799821",
