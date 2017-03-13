@@ -17,6 +17,8 @@ export function SubscribersDirective(
             $scope.availableProducts = null;
             $scope.subTypes = null;
 
+            $scope.step = {current: 'general'};
+
             if (angular.isDefined(metadata.values.subscriber_types)) {
                 $scope.subTypes = metadata.values.subscriber_types;
             } else {
