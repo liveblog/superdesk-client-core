@@ -78,5 +78,4 @@ angular.module('superdesk.apps.aggregate', [
 ])
     .controller('AggregateCtrl', ctrl.AggregateCtrl)
     .directive('sdAggregateSettings', directive.AggregateSettings)
-    .directive('sdSortGroups', directive.SortGroups)
-    .directive('sdWidgetGroup', directive.WidgetGroup);
+    .directive('sdSortGroups', directive.SortGroups);

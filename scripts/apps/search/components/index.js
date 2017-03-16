@@ -23,5 +23,3 @@ export {Item} from './Item';
 export {ItemList} from './ItemList';
 export {Associations} from './Associations';
 export {QueueError} from './QueueError';
-export {WidgetItem} from './WidgetItem';
-export {WidgetItemList} from './WidgetItemList';

@@ -6,4 +6,3 @@ export {ItemActionsMenu} from './ItemActionsMenu';
 
 export {AggregateSettings} from './AggregateSettings';
 export {SortGroups} from './SortGroups';
-export {WidgetGroup} from './WidgetGroup';

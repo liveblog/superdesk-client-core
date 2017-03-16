@@ -1,3 +1,4 @@
+export {StageItemListDirective} from './StageItemListDirective';
 export {TaskStatusItemsDirective} from './TaskStatusItemsDirective';
 export {UserRoleItemListDirective} from './UserRoleItemListDirective';
 export {SluglinesItemListDirective} from './SluglinesItemListDirective';

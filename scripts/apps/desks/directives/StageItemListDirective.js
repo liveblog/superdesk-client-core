@@ -1,9 +1,4 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-import {WidgetItemList as WidgetItemListComponent} from 'apps/search/components';
-
-WidgetGroup.$inject = [
+StageItemListDirective.$inject = [
     'search',
     'api',
     'superdesk',
@@ -14,32 +9,13 @@ WidgetGroup.$inject = [
     '$location',
     '$anchorScroll',
     'activityService',
-    '$rootScope',
-    'gettextCatalog',
-    'datetime',
-    'metadata'
+    '$rootScope'
 ];
 
-export function WidgetGroup(search, api, superdesk, desks, cards, $timeout, $q,
-    $location, $anchorScroll, activityService, $rootScope, gettextCatalog, datetime, metadata) {
-    const services = {
-        search: search,
-        api: api,
-        superdesk: superdesk,
-        desks: desks,
-        cards: cards,
-        $timeout: $timeout,
-        $q: $q,
-        $location: $location,
-        $anchorScroll: $anchorScroll,
-        activityService: activityService,
-        $rootScope: $rootScope,
-        gettextCatalog: gettextCatalog,
-        datetime: datetime,
-        metadata: metadata
-    };
-
+export function StageItemListDirective(search, api, superdesk, desks, cards, $timeout, $q,
+    $location, $anchorScroll, activityService, $rootScope) {
     return {
+        templateUrl: 'scripts/apps/desks/views/stage-item-list.html',
         scope: {
             stage: '=',
             total: '=',
@@ -55,8 +31,7 @@ export function WidgetGroup(search, api, superdesk, desks, cards, $timeout, $q,
 
             scope.page = 1;
             scope.fetching = false;
-            scope.itemIds = [];
-            scope.itemsById = {};
+            scope.cache = [];
 
             /**
               * Generates Identifier to be used by track by expression.
@@ -102,17 +77,9 @@ export function WidgetGroup(search, api, superdesk, desks, cards, $timeout, $q,
             }
 
             function queryItems(queryString) {
-                if (!scope.fetching) {
-                     // page reload disabled when the user scrolls
-                    if (container.scrollTop > 20) {
-                        return;
-                    }
-                    scope.page = 1;
-                    scope.itemIds = [];
-                    scope.itemsById = {};
-                }
-
                 criteria = cards.criteria(scope.stage, queryString);
+                scope.loading = true;
+                scope.items = scope.total = null;
 
                 if (scope.page > 0 && criteria.source) {
                     criteria.source.from = (scope.page - 1) * criteria.source.size;
@@ -120,79 +87,24 @@ export function WidgetGroup(search, api, superdesk, desks, cards, $timeout, $q,
 
                 api(getProvider(criteria)).query(criteria)
                     .then((items) => {
-                        items._items.forEach((item) => {
-                            var itemId = search.generateTrackByIdentifier(item);
-
-                            if (!scope.itemsById[itemId]) {
-                                scope.itemIds.push(itemId);
-                            }
-                            scope.itemsById[itemId] = item;
-                        });
+                        scope.items = items._items;
                         scope.total = items._meta.total;
+                        scope.cache = items._items;
+                        setNextItems(criteria);
                     })
                     .finally(() => {
-                        scope.fetching = false;
-
-                        if (!scope.selected && scope.itemIds && scope.itemIds.length) {
-                            scope.selected = scope.itemsById[_.head(scope.itemIds)];
-                            scope.action({item: scope.selected});
-                        }
-
-                        scope.updateList({
-                            itemIds: scope.itemIds,
-                            itemsById: scope.itemsById,
-                            loading: false,
-                            selected: scope.selected
-                        });
+                        scope.loading = false;
                     });
             }
 
-
-            scope.updateItem = function(item, gone, schedule) {
-                var itemId;
-
-                if (!item) {
-                    if (schedule) {
-                        scheduleQuery();
-                        return;
-                    }
-                    return;
-                }
-
-                itemId = search.generateTrackByIdentifier(item);
-
-                if (scope.itemsById[itemId]) {
-                    angular.extend(item, {
-                        gone: gone
-                    });
-                    scope.itemsById[itemId] = item;
-                    scope.updateList({
-                        itemIds: scope.itemIds,
-                        itemsById: scope.itemsById
-                    });
-                } else if (schedule) {
-                    scheduleQuery();
-                }
-            };
-
-            scope.$watch('filter', (query) => {
-                container.scrollTop = 0;
-                queryItems(query);
-            });
-
+            scope.$watch('filter', queryItems);
             scope.$on('task:stage', (_e, data) => {
-                if (scope.stage && (data.new_stage === scope.stage._id || data.old_stage === scope.stage._id)) {
-                    scope.updateItem(getItem(data.item), data.new_stage !== scope.stage._id, true);
+                if (scope.stage && (data.new_stage === scope.stage || data.old_stage === scope.stage)) {
+                    scheduleQuery();
                 }
             });
 
             scope.$on('content:update', (_e, data) => {
-                if (data && cards.shouldUpdate(scope.stage, data)) {
-                    scheduleQuery();
-                }
-            });
-
-            scope.$on('item:fetch', (_e, data) => {
                 if (cards.shouldUpdate(scope.stage, data)) {
                     scheduleQuery();
                 }
@@ -201,45 +113,27 @@ export function WidgetGroup(search, api, superdesk, desks, cards, $timeout, $q,
             scope.$on('item:move', (_e, data) => {
                 if (data.to_desk && data.from_desk !== data.to_desk ||
                     data.to_stage && data.from_stage !== data.to_stage) {
-                    scope.updateItem(getItem(data.item), scope.stage._id !== data.to_stage, true);
+                    scheduleQuery(2000); // smaller delay.
                 }
             });
 
-            scope.$on('content:expired', (_e, data) => {
-                scope.updateItem(getItem(data.item), true, false);
-            });
+            scope.$on('content:expired', scheduleQuery);
 
             scope.$on('item:lock', (_e, data) => {
-                var item = getItem(data.item);
-
-                if (!item) {
-                    return;
-                }
-                item.lock_user = data.user;
-                scope.updateItem(item, false, false);
+                _.each(scope.items, (item) => {
+                    if (item._id === data.item) {
+                        item.lock_user = data.user;
+                    }
+                });
             });
 
             scope.$on('item:unlock', (_e, data) => {
-                var item = getItem(data.item);
-
-                if (!item) {
-                    return;
-                }
-                item.lock_user = null;
-                scope.updateItem(item, false, false);
-            });
-
-            function getItem(itemId) {
-                var result;
-
-                _.forOwn(scope.itemsById, (item, key) => {
-                    if (item._id === itemId) {
-                        result = item;
+                _.each(scope.items, (item) => {
+                    if (item._id === data.item) {
+                        item.lock_user = null;
                     }
                 });
-
-                return result;
-            }
+            });
 
             var queryTimeout;
 
@@ -282,8 +176,11 @@ export function WidgetGroup(search, api, superdesk, desks, cards, $timeout, $q,
 
                 if (container.scrollTop <= 2 && lastScrollTop >= container.scrollTop) {
                     lastScrollTop = container.scrollTop;
-                    offsetY = 2 - container.scrollTop;
-                    container.scrollTop += offsetY;
+                    return scope.fetchPrevious().then(() => {
+                        setFetching();
+                        offsetY = 2 - container.scrollTop;
+                        container.scrollTop += offsetY;
+                    });
                 }
             });
 
@@ -299,15 +196,83 @@ export function WidgetGroup(search, api, superdesk, desks, cards, $timeout, $q,
                 }, 200, false);
             }
 
+            /**
+             * Populate items from cache for current from/size values
+             */
+            function sliceItems() {
+                scope.items = scope.cache.slice(criteria.source.from, criteria.source.from + criteria.source.size);
+            }
+
+            /**
+             * Test if we can get items from cache for current from/size values
+             */
+            function hasItemsInCache() {
+                return criteria.source.from + criteria.source.size <= scope.cache.length;
+            }
+
+            /**
+             * Use cache to finish next/prev handling
+             */
+            function useCache() {
+                return $timeout(() => {
+                    scope.$applyAsync(() => { // add apply to avoid full page digest via timeout
+                        sliceItems();
+                        scope.fetching = false;
+                        scope.loading = false;
+                    });
+                }, 500, false);
+            }
+
             scope.fetchNext = function() {
                 if (!scope.fetching) {
                     scope.page += 1;
-                    scope.fetching = true;
-                    queryItems();
+                    scope.fetching = scope.loading = true;
+                    criteria.source.from = (scope.page - 1) * criteria.source.size;
+
+                    if (hasItemsInCache()) {
+                        return useCache();
+                    }
+
+                    return api(getProvider(criteria)).query(criteria)
+                        .then(addItemsToCache)
+                        .then(sliceItems)
+                        .finally(() => {
+                            scope.fetching = false;
+                            scope.loading = false;
+                        });
                 }
 
                 return $q.when(false);
             };
+
+            scope.fetchPrevious = function() {
+                if (!scope.fetching && scope.page > 1) {
+                    scope.page -= 1;
+                    scope.fetching = scope.loading = true;
+                    criteria.source.from = (scope.page - 1) * criteria.source.size;
+
+                    if (hasItemsInCache()) { // always true actually
+                        return useCache();
+                    }
+                }
+
+                return $q.when(false);
+            };
+
+            function setNextItems(criteria) {
+                criteria.source.from = scope.page * criteria.source.size;
+                return api(getProvider(criteria)).query(criteria)
+                    .then(addItemsToCache);
+            }
+
+            /**
+             * Add items to cache and filter out items which are there already
+             */
+            function addItemsToCache(items) {
+                scope.cache = scope.cache.concat(items._items.filter((item) =>
+                    !scope.cache.find((cacheItem) => cacheItem._id === item._id)
+                ));
+            }
 
             var UP = -1,
                 DOWN = 1;
@@ -334,9 +299,8 @@ export function WidgetGroup(search, api, superdesk, desks, cards, $timeout, $q,
             });
 
             scope.move = function(diff, event) {
-                if (!_.isNil(scope.selected) && $rootScope.config.features.customMonitoringWidget && scope.itemIds) {
-                    var itemId = scope.generateTrackByIdentifier(scope.selected);
-                    var index = scope.itemIds.findIndex((x) => x === itemId);
+                if (!_.isNil(scope.selected) && $rootScope.config.features.customMonitoringWidget && scope.items) {
+                    var index = _.findIndex(scope.items, {_id: scope.selected._id});
 
                     if (!itemHeight) {
                         var containerItems = container.getElementsByTagName('li');
@@ -347,12 +311,12 @@ export function WidgetGroup(search, api, superdesk, desks, cards, $timeout, $q,
                     }
                     if (index === -1) { // selected not in current items, select first
                         container.scrollTop = 0;
-                        clickItem(scope.itemsById[_.head(scope.itemIds)], event);
+                        clickItem(_.head(scope.items), event);
                     }
-                    var nextIndex = _.max([0, _.min([scope.itemIds.length - 1, index + diff])]);
+                    var nextIndex = _.max([0, _.min([scope.items.length - 1, index + diff])]);
 
                     if (nextIndex < 0) {
-                        clickItem(scope.itemsById[_.last(scope.itemIds)], event);
+                        clickItem(_.last(scope.items), event);
                     }
                     if (index !== nextIndex) {
                         // scrolling in monitoring widget for ntb is done by keyboard
@@ -365,7 +329,7 @@ export function WidgetGroup(search, api, superdesk, desks, cards, $timeout, $q,
                         if (nextIndex * itemHeight < container.scrollTop && nextIndex < index) {
                             container.scrollTop -= itemHeight * 2;
                         }
-                        clickItem(scope.itemsById[scope.itemIds[nextIndex]], event);
+                        clickItem(scope.items[nextIndex], event);
                     } else if (event) {
                         event.preventDefault();
                         event.stopPropagation();
@@ -373,53 +337,17 @@ export function WidgetGroup(search, api, superdesk, desks, cards, $timeout, $q,
                     }
                 }
             };
-
             function clickItem(item, $event) {
-                scope.select(item, false);
+                scope.select(item);
                 if ($event) {
                     $event.preventDefault();
                     $event.stopPropagation();
                     $event.stopImmediatePropagation();
                 }
             }
-
-            scope.select = function(item, apply = true) {
-                scope.action({item: item});
-                scope.updateList({selected: item});
-                if (apply) {
-                    scope.$apply();
-                }
+            scope.select = function(view) {
+                this.selected = view;
             };
-
-            scope.setLoading = function(loading) {
-                scope.updateList({
-                    loading: loading
-                });
-            };
-
-            scope.getUpdateCallback = function(updateCallback) {
-                scope.updateList = updateCallback;
-            };
-
-            var itemList = React.createElement(WidgetItemListComponent,
-                {
-                    allowed: scope.allowed,
-                    customMonitoringWidget: $rootScope.config.features.customMonitoringWidget,
-                    svc: services,
-                    preview: scope.preview,
-                    select: scope.select,
-                    edit: scope.edit,
-                    updateCallback: scope.getUpdateCallback
-                }
-            );
-
-            ReactDOM.render(itemList, elem[0]);
-
-            // remove react elem on destroy
-            scope.$on('$destroy', () => {
-                elem.off();
-                ReactDOM.unmountComponentAtNode(elem[0]);
-            });
         }
     };
 }
