@@ -24,7 +24,8 @@ export function Widget(asset, $modal) {
                     templateUrl: 'scripts/apps/dashboard/views/configuration.html',
                     controller: ConfigController,
                     controllerAs: 'dataCtrl',
-                    scope: scope
+                    scope: scope,
+                    size: scope.widget.label === 'Monitoring' ? 'tabs modal--nested-fix' : ''
                 });
             };
         }
