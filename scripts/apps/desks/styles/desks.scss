@@ -329,10 +329,35 @@ $desk-width: 270px;
 
 /* Desk create/edit popup */
 
-.add-desk-popup {
+.sd-wizard {
     .modal__body {
-        height: 500px !important;
-        max-height: 500px !important;
+        .modal__body-content {
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            background: 0 0;
+            > div {
+                display: flex;
+                flex-direction: column;
+                overflow-y: auto;
+                > div {
+                    display: flex;
+                    flex-direction: column;
+                    overflow-y: auto;
+                }
+            }
+            .content {
+                flex: 1 1 auto;
+                width: 100%;
+                overflow-y: auto;
+                padding: 2rem;
+                background: $sd-background;
+            }
+            .modal__footer {
+                display: block;
+                flex: 0 0 auto;
+            }
+        }
     }
     .stages {
         .col {
@@ -355,6 +380,7 @@ $desk-width: 270px;
         .heading {
             padding: 2px 0;
             color: #666;
+            margin-right: 10px;
             text-transform: uppercase;
         }
         [sd-content-expiry] {
@@ -456,12 +482,6 @@ $desk-width: 270px;
                 z-index: 1;
             }
         }
-        .content {
-            position: absolute;
-            left: 20px; right: 20px;
-            top: 100px; bottom: 80px;
-            overflow: auto;
-        }
         .member-list {
             ul {
                 > li {
@@ -471,7 +491,7 @@ $desk-width: 270px;
                     border: 1px solid rgba(0,0,0,0);
                     @include border-radius(3px);
                     padding: 15px 10px;
-                    width: 115px;
+                    width: 135px;
                     .avatar {
                         display: block;
                         width: 84px;
@@ -566,8 +586,8 @@ $desk-width: 270px;
         cursor: default;
     }
     &__header {
-        padding: 5px 2px;
-        height: 16px;
+        padding: 0;
+        height: 26px;
         line-height: 16px;
     }
     &__name {

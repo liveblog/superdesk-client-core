@@ -41,13 +41,13 @@
                     </div>
 
                     <div class="field">
-                        <label for="subscriber-name" translate>Name</label>
+                        <label for="subscriber-name" class="pull-left" translate>Name</label>
                         <i class="field-info pull-right">*</i>
                         <input type="text" id="subscriber-name" required ng-model="subscriber.name">
                     </div>
 
                     <div class="field">
-                        <label for="subscriber-email" translate>E-Mail to broadcast Kill Events</label>
+                        <label for="subscriber-email" class="pull-left" translate>E-Mail to broadcast Kill Events</label>
                         <i class="field-info pull-right">*</i>
                         <input type="text"
                                id="subscriber-email"
@@ -56,7 +56,7 @@
                     </div>
 
                     <div class="field">
-                        <label for="subType" translate>Target Type</label>
+                        <label for="subType" class="pull-left" translate>Target Type</label>
                         <i class="field-info pull-right">*</i>
                         <select id="subType" ng-model="subscriber.subscriber_type" ng-options="s.qcode as s.name for s in subTypes" ng-change="changeFormats(subscriber.subscriber_type)" required>
                             <option value=""></option>
@@ -64,7 +64,7 @@
                     </div>
 
                     <div class="field">
-                        <label for="media-type" translate>Media Type</label>
+                        <label for="media-type" class="pull-left" translate>Media Type</label>
                         <select id="media-type" class="input" ng-model="subscriber.media_type">
                             <option value="media" translate>Media</option>
                             <option value="nonmedia" translate>Non-media</option>
@@ -152,7 +152,7 @@
                     <div ng-controller="SubscriberTokenCtrl as tokens">
                         <h3 translate>Authentication Token</h3>
                         <ul class="pills-list">
-                            <li ng-repeat="token in tokens.tokens track by token._id" class="field">
+                            <li ng-repeat="token in tokens.tokens track by token._id" class="field clearfix">
                                 <div class="header">
                                     <h6><code contenteditable="true" spellcheck="false">{{ :: token._id}}</code></h6>
                                     <small class="badge">{{ :: 'expires:' | translate }} <time sd-datetime data-date="token.expiry" data-from-now="true"></time></small>
@@ -163,7 +163,7 @@
                                     </button>
                                 </div>
                             </li>
-                            <li ng-show="tokens.tokens.length === 0">
+                            <li ng-show="tokens.tokens.length === 0" class="clearfix">
                                 <div class="header">
                                     <h6 translate>There is no token for subscriber.</h6>
                                 </div>

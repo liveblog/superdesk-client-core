@@ -375,6 +375,75 @@
     .filter-type {
         padding: 0 10px;
     }
+    // compare-versions dropdown
+    // -------------------------------------------------
+
+    &--compare-versions {
+        max-height: 400px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        li {
+            margin-bottom: 2px;
+            line-height: 14px !important;
+            .dropdown.open li .dropdown .dropdown__toggle:hover {
+                display: none;
+            }
+            button {
+                width: 300px;
+                padding-right: 30px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                position: relative;
+                border-radius: 0;
+                line-height: 14px !important;
+                box-shadow: 0px 1px 1px 0 rgba(0, 0, 0, 0.15);
+                i {
+                    position: absolute;
+                    right: -5px;
+                    top: 9px;
+                }
+                &.disabled, &.disabled:hover {
+                    background: #f0f0f0;
+                    i {
+                        @include opacity(20);
+                    }
+                }
+                .headline {
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    font-size: 11px;
+                    font-weight: 500;
+                    width: 240px;
+                    display: inline-block;
+                }
+                .desk-details {
+                    display: block;
+                    font-size: 10px;
+                }
+                em {
+                    font-size: 10px;
+                    font-weight: 500;
+                    color: #888;
+                    float: left;
+                    padding-right: 10px;
+                }
+            }
+            .msg {
+                padding: 0 20px;
+            }
+        }
+    }
+    .fieldset {
+        button {
+            text-align: center;
+            width: auto;
+            min-width: 50px;
+            clear: none;
+            margin-right: 10px;
+            float: right;
+        }
+    }
 }
 
 .online-users {
@@ -473,6 +542,20 @@
             @include box-shadow(none);
         }
     }
+    .btn--mini {
+        padding: 4px 6px;
+        font-size: 11px;
+        line-height: 11px!important;
+        height: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 0;
+        td, th {
+            padding: 1px;
+        }
+    }
     .datepicker-additional {
         margin-bottom: 5px;
         table {
@@ -531,7 +614,7 @@
                     padding-top: 5px;
                 }
                 td {
-                    padding: 0 2px;
+                        padding: 0 2px;
                     .btn {
                         width: 100% !important;
                         min-width: 28px !important;
@@ -580,9 +663,21 @@
         margin-bottom: 5px;
         table {
             width: 100%;
+            border-collapse: collapse;
+            border: 0;
+            td, th {
+                padding: 1px;
+            }
         }
         .btn {
             width: 100%;
+            letter-spacing: 0;
+        }
+        .btn--mini {
+            padding: 4px 6px;
+            font-size: 11px;
+            line-height: 11px!important;
+            height: 20px;
         }
     }
     .timepicker-core {
@@ -1628,15 +1723,33 @@ header .sortbar {
 // ---------------------------------------------
 .draggable-list {
     > li {
-        background: #fff url(~images/draggable-bg.png) repeat-y left 3px top 3px;
-        padding: 12px 14px 12px 25px;
+        background-color: #fff;
+        padding: 18px 14px 19px 25px;
         margin-bottom: 10px;
         cursor: move;
         @include box-shadow (0 1px 4px 0 rgba(0,0,0,0.2));
+        position: relative;
         &.placeholder {
             background: none;
             @include box-shadow(none);
             border: 2px dashed #ebebeb;
+        }
+        &:after {
+            content: "";
+            width: 10px;
+            top: 0;
+            bottom: 0;
+            left: 2px;
+            background: transparent url(~images/draggable-bg.png) repeat-y left 3px top 3px;
+            opacity: 0.2;
+            position: absolute;
+            display: block;
+        }
+        &:hover {
+            @include box-shadow (0 1px 4px 0 rgba(0,0,0,0.4));
+            &:after {
+                opacity: 0.8;
+            }
         }
     }
 
@@ -1647,7 +1760,7 @@ header .sortbar {
     margin-left: 5px;
     > li {
         word-spacing: 2px;
-        line-height: 10px;
+        line-height: 0px;
     }
     .sort-item {
         &.active {

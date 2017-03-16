@@ -351,6 +351,9 @@
     &--padded {
         padding: 10px 20px;
     }
+    + .subnav {
+        z-index: 999;
+    }
 }
 .subnav__page-title,
 .page-nav-title {
