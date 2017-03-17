@@ -516,3 +516,13 @@
     font-style: italic;
     opacity: 0.5;
 }
+
+.navbtn--text-only {
+    padding: 0 20px;
+    width: auto;
+    font-size: 15px;
+    line-height: 48px;
+    &:hover {
+        background: hsla(0,0%,100%,.8);
+    }
+}
