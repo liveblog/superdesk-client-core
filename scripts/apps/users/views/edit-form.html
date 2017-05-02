@@ -109,11 +109,11 @@
                   <div ng-show="userForm.email.$error.unique || error.email.unique" sd-valid-error translate>sorry, a user with this email already exists</div>
                 </div>
 
-                <div sd-info-item class="user_role">
-                  <label for="user_language" translate>Language</label>
-                  <select ng-focus="focused()" ng-model="user.language" name="user_language" id="user_language" ng-options="lang.code as lang.nativeName for lang in languages"></select>
-                  <a href="https://www.transifex.com/projects/p/superdesk/" target="_blank" class="sd-blue">{{ "Help us translate Superdesk" | translate }}</a>
-                </div>
+                <!--<div sd-info-item class="user_role">-->
+                <!--  <label for="user_language" translate>Language</label>-->
+                <!--  <select ng-focus="focused()" ng-model="user.language" name="user_language" id="user_language" ng-options="lang.code as lang.nativeName for lang in languages"></select>-->
+                <!--  <a href="https://www.transifex.com/projects/p/superdesk/" target="_blank" class="sd-blue">{{ "Help us translate Superdesk" | translate }}</a>-->
+                <!--</div>-->
 
                 <div sd-info-item class="user_type" ng-if="privileges.users">
                   <label for="user_type" translate>administrator</label>
@@ -134,11 +134,6 @@
                 <div sd-info-item>
                   <label for="phone" translate>phone number</label>
                   <input type="text" name="phone" id="phone" ng-model="user.phone">
-                </div>
-
-                <div sd-info-item>
-                  <label for="jid">JID</label>
-                  <input type="text" name="jid" id="jid" ng-model="user.jid">
                 </div>
 
                 <div sd-info-item ng-show="user._id">
