@@ -84,7 +84,7 @@
     "jquery": "^2.2.3",
     "jquery-jcrop": "^0.9.13",
     "jquery-ui": "components/jqueryui#1.11.4",
-    "jquery.gridster": "nistormihai/gridster.js#0434429a35ed9b947e1eac8354bedf0f48cf573b",
+    "jquery.gridster": "nistormihai/gridster.js#8399d053d5116ddb68b28997dfc8a32bb5acedbf",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "load-grunt-config": "0.17.2",
